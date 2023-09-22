@@ -1,8 +1,16 @@
-import './globals.css'
+import { Container, Header } from '@/styles/app'
+import { globalStyles } from '@/styles/global'
+import { getCssText } from '@/styles/stitches.config'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Roboto } from 'next/font/google'
+import Image from 'next/image'
+import logoImg from '../assets/Logo.svg'
 
-const inter = Inter({ subsets: ['latin'] })
+const roboto = Roboto(
+  {weight:['400', '700'],
+  subsets:['latin'],
+  variable: '--font-roboto'
+})
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -16,7 +24,20 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <head>        
+      </head>
+      <body className={roboto.className}>
+        
+        <Container>
+        <Header>
+        <Image src={logoImg} alt='' />
+        </Header>
+        {children}
+
+        </Container>
+
+      <style id="stitches" dangerouslySetInnerHTML={{ __html: `${getCssText()}, ${globalStyles()}` }} />
+      </body>
     </html>
   )
 }
