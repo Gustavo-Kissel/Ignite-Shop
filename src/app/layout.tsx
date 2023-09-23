@@ -33,7 +33,6 @@ export default function RootLayout({
         <Image src={logoImg} alt='' />
         </Header>
         {children}
-
         </Container>
 
       <style id="stitches" dangerouslySetInnerHTML={{ __html: `${getCssText()}, ${globalStyles()}` }} />
