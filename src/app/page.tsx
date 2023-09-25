@@ -1,65 +1,32 @@
-'use client'
 
-import { HomeContainer, Product } from "@/styles/page/home";
+import { Product } from "@/styles/page/home";
 import Image from "next/image";
 
-import { useKeenSlider } from 'keen-slider/react'
+import { getProducts } from "@/services/get-product";
+import React from "react";
 
-import camiseta1 from "../assets/2_explorer-t-shirt 2.png"
-import camiseta2 from "../assets/Camisa-Maratona 2.png"
-import camiseta3 from "../assets/IgniteLab-T-shirt 2.png"
-import camiseta4 from "../assets/Igniter-abord-2-t-shirt 2.png"
+import HomeContainerGambi from "@/components/Carousel/Carousel";
 
-import 'keen-slider/keen-slider.min.css';
+export default async function Home() {
 
-export default function Home() {
-  const [sliderRef] = useKeenSlider({
-    slides: {
-      perView: 3,
-      spacing: 48,
-    }
-  })
+
+  const products = await getProducts();
 
   return (
-    <HomeContainer ref={sliderRef} className="keen-slider">
-    
-      <Product className="keen-slider__slide">
-        <Image src={camiseta1} alt="" width={520} height={480} />
+    <HomeContainerGambi >
+      {products.map((product) => {
+        return (
+          <Product key={product.id} className="keen-slider__slide">
+            <Image src={product.imageUrl} alt="" width={520} height={480} />
+            <footer>
+              <strong>{product.name}</strong>
+              <span>{product.price}</span>
+            </footer>
+          </Product>
 
-        <footer>
-          <strong>Camiseta Explorer</strong>
-          <span>R$ 79,90</span>
-        </footer>
-      </Product>
-
-      <Product className="keen-slider__slide">
-        <Image src={camiseta2} alt="" width={520} height={480} />
-
-        <footer>
-          <strong>Camiseta Maratona</strong>
-          <span>R$ 79,90</span>
-        </footer>
-      </Product>
-
-      <Product className="keen-slider__slide">
-        <Image src={camiseta3} alt="" width={520} height={480} />
-
-        <footer>
-          <strong>Camiseta Ignite Lab</strong>
-          <span>R$ 79,90</span>
-        </footer>
-      </Product>
-
-      <Product className="keen-slider__slide">
-        <Image src={camiseta4} alt="" width={520} height={480} />
-
-        <footer>
-          <strong>Camiseta Igniter Aboard</strong>
-          <span>R$ 79,90</span>
-        </footer>
-      </Product>
-    </HomeContainer>
+        )
+      })}
+    </HomeContainerGambi>
   )
 }
-
 
