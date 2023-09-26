@@ -15,8 +15,6 @@ export const getProducts = async (): Promise<ProductProps[]> => {
         expand: ["data.default_price"],
     });
 
-    console.log(response.data);
-
     const product = response.data.map((product) => {
         const price = product.default_price as Stripe.Price;
 
