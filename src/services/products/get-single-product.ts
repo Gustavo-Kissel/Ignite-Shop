@@ -24,13 +24,13 @@ export const getSingleProduct = async (prodId: string): Promise<ProductProps> =>
     const price = product.default_price as Stripe.Price;
     return {
         id: product.id,
-        name: product.name,
+        title: product.name,
         imageUrl: product.images[0],
         price: new Intl.NumberFormat("pr-BR", {
             style: 'currency',
             currency: 'BRL',
         }).format((price.unit_amount as number) / 100),
-        description: product.description,
+        description: product.description!,
         defaultPriceId: price.id
 
     }
